@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ai-games playground</title>
+    <!-- Inline favicon: keeps the console free of a /favicon.ico 404. -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23101014'/%3E%3Crect x='4' y='4' width='8' height='8' rx='1.5' fill='%237ee2a8'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <aside id="sidebar">
+        <h1>ai-games</h1>
+        <ul id="asset-list"></ul>
+      </aside>
+      <main id="stage">
+        <canvas id="canvas"></canvas>
+        <div id="overlay" hidden></div>
+      </main>
+      <aside id="panel">
+        <div id="pane-host"></div>
+        <section id="status">
+          <div id="capsule-status" hidden></div>
+          <ul id="violations"></ul>
+          <div id="gen-error" hidden></div>
+          <div id="lock-info" hidden></div>
+        </section>
+      </aside>
+    </div>
+    <div id="toasts"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

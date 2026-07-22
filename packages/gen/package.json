@@ -1,0 +1,21 @@
+{
+  "name": "@ai-games/gen",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Procedural generator library: mesh primitives (plane/box/uvSphere/cylinder/lathe/extrude/tube), bundle ops (computeNormals/flatShade/merge/transform/setColor), SDF combinators + surface nets mesher, seedable CPU noise (simplex/fbm/worley) with matching WGSL snippets, and vendored ZzFX audio. Depends only on @ai-games/schema. All generators must be deterministic: same inputs -> bit-identical GeometryBundles.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@ai-games/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  }
+}

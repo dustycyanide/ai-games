@@ -1,0 +1,10 @@
+{
+  "capsule": "toybox@0.1.0",
+  "seed": 90210,
+  "params": {
+    "height": 2.4,
+    "foliageLayers": 4,
+    "droop": 0.35,
+    "trunkTwist": 0.3
+  }
+}

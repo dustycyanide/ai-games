@@ -1,0 +1,9 @@
+{
+  "capsule": "toybox@0.1.0",
+  "seed": 4242,
+  "params": {
+    "height": 1.6,
+    "ribs": 4,
+    "glow": 0.7
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@ai-games/schema",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure contracts for the asset system: runtime types (GeometryBundle, Instance, TextureRecipe, AssetOutput), the deterministic pcg32 PRNG (makePrng with label-hashed fork), and zod schemas for capsule manifests, asset records, and lockfiles. No DOM, no GPU imports — safe in browser, worker, and Node.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vitest": "4.1.10"
+  }
+}

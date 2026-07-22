@@ -1,0 +1,26 @@
+{
+  "name": "@ai-games/playground",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Vite playground: pick an asset from assets/, live WebGPU preview via @ai-games/core, Tweakpane panel auto-generated from the asset's zod Params (z.toJSONSchema walker), capsule validate() badge/violations, Save (POST /api/params) and Finalize (POST /api/finalize -> asset.lock.json with sha256 hashes). The Node-side API lives in plugins/api.ts as Vite dev-server middleware.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@ai-games/core": "workspace:*",
+    "@ai-games/gen": "workspace:*",
+    "@ai-games/schema": "workspace:*",
+    "tweakpane": "4.0.5",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@tweakpane/core": "2.0.5",
+    "@types/node": "26.1.1",
+    "@webgpu/types": "0.1.71",
+    "typescript": "7.0.2",
+    "vite": "7.3.6"
+  }
+}
