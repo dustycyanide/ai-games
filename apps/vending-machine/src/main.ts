@@ -5,8 +5,8 @@
  * collected perks and the four-of-four jackpot.
  */
 
-import '@fontsource/bebas-neue/400.css';
-import '@fontsource/lobster/400.css';
+import '@fontsource/bebas-neue/latin-400.css';
+import '@fontsource/lobster/latin-400.css';
 import './style.css';
 
 import * as THREE from 'three';
