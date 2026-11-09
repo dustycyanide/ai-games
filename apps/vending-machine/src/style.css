@@ -1,0 +1,363 @@
+/* HUD for the Tonic-O-Matic. The 3D canvas fills the page; everything else
+   floats over it and takes its accent from the current flavour (--glow). */
+
+:root {
+  color-scheme: dark;
+  --glow: #ff9a3c;
+  --paint: #b8461c;
+  --cream: #efe2c2;
+  --panel: rgba(10, 10, 16, 0.62);
+  --display: 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+  --script: Lobster, 'Brush Script MT', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #05060a;
+  color: var(--cream);
+  font: 15px/1.45 system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+body.ready #hud {
+  opacity: 1;
+}
+
+#hud button,
+#card {
+  pointer-events: auto;
+}
+
+/* --- flavour card -------------------------------------------------------- */
+
+#card {
+  position: absolute;
+  top: max(22px, env(safe-area-inset-top));
+  left: max(22px, env(safe-area-inset-left));
+  width: min(320px, calc(100vw - 44px));
+  padding: 14px 18px 14px;
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--glow) 35%, transparent);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+}
+
+.brand {
+  font: 22px/1 var(--script);
+  color: var(--cream);
+}
+
+.brand span {
+  font: 15px/1 var(--display);
+  letter-spacing: 0.14em;
+  opacity: 0.7;
+  margin-left: 6px;
+}
+
+#flavor-name {
+  margin: 10px 0 0;
+  font: 54px/0.9 var(--display);
+  letter-spacing: 0.02em;
+  color: var(--glow);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--glow) 55%, transparent);
+}
+
+#flavor-sub {
+  font: 20px/1.1 var(--display);
+  letter-spacing: 0.16em;
+}
+
+#flavor-tag {
+  margin: 8px 0 0;
+  font: 19px/1.2 var(--script);
+  opacity: 0.9;
+}
+
+#perk-line {
+  margin: 10px 0 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(239, 226, 194, 0.18);
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+#perk-line.has {
+  opacity: 1;
+}
+
+#perk-line.has b {
+  color: var(--glow);
+}
+
+/* --- tools --------------------------------------------------------------- */
+
+#tools {
+  position: absolute;
+  top: max(22px, env(safe-area-inset-top));
+  right: max(22px, env(safe-area-inset-right));
+  display: flex;
+  gap: 8px;
+}
+
+#tools button {
+  font: 15px/1 var(--display);
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  background: var(--panel);
+  border: 1px solid rgba(239, 226, 194, 0.25);
+  border-radius: 999px;
+  padding: 8px 14px 7px;
+  cursor: pointer;
+}
+
+#tools button:hover {
+  border-color: var(--glow);
+}
+
+/* --- dock ---------------------------------------------------------------- */
+
+#dock {
+  position: absolute;
+  left: 50%;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+}
+
+#caps {
+  display: flex;
+  gap: 12px;
+}
+
+.cap {
+  width: 62px;
+  height: 62px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent center / contain no-repeat;
+  cursor: pointer;
+  filter: grayscale(0.9) brightness(0.5);
+  transition: filter 0.3s, transform 0.2s;
+}
+
+.cap:hover {
+  transform: translateY(-3px);
+}
+
+.cap.owned {
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+
+.cap.selected {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+.cap.selected:not(.owned) {
+  filter: grayscale(0.35) brightness(0.8);
+}
+
+#vend {
+  font: 26px/1 var(--display);
+  letter-spacing: 0.12em;
+  color: #14100c;
+  background: var(--glow);
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 30px 9px;
+  cursor: pointer;
+  box-shadow: 0 0 26px color-mix(in srgb, var(--glow) 55%, transparent), inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+  transition: transform 0.1s, opacity 0.2s, background 0.4s;
+}
+
+#vend:active {
+  transform: translateY(2px);
+}
+
+#vend:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+#help {
+  font-size: 12px;
+  opacity: 0.55;
+  text-align: center;
+  text-shadow: 0 1px 3px #000;
+}
+
+/* --- toast --------------------------------------------------------------- */
+
+#toast {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  transform: translate(-50%, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 26px 12px;
+  background: var(--panel);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.35s, transform 0.35s;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#toast strong {
+  font: 400 40px/1 var(--display);
+  letter-spacing: 0.06em;
+}
+
+/* --- full-screen effects ------------------------------------------------- */
+
+#flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, var(--flash, #fff) 130%);
+}
+
+#flash.go {
+  animation: flash 1.3s ease-out;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Grit perk: a riveted steel rim around the view. */
+#frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s;
+  border: 10px solid #5d6068;
+  border-image: linear-gradient(135deg, #8d9099, #3c3e45 40%, #7b7e87 60%, #2d2f35) 1;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.75);
+}
+
+body.grit #frame {
+  opacity: 1;
+}
+
+#frame i {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #d6d9e0, #4a4c53 70%);
+  box-shadow: 0 1px 3px #000;
+}
+
+#frame i:nth-child(1) {
+  top: 3px;
+  left: 3px;
+}
+#frame i:nth-child(2) {
+  top: 3px;
+  right: 3px;
+}
+#frame i:nth-child(3) {
+  bottom: 3px;
+  left: 3px;
+}
+#frame i:nth-child(4) {
+  bottom: 3px;
+  right: 3px;
+}
+
+#loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 26px var(--script);
+  color: var(--cream);
+  background: #05060a;
+  transition: opacity 0.6s;
+}
+
+body.ready #loading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1000px) {
+  #toast {
+    top: 46%;
+  }
+}
+
+@media (max-width: 640px) {
+  #card {
+    padding: 10px 14px;
+    width: min(250px, calc(100vw - 44px));
+  }
+  #flavor-name {
+    font-size: 40px;
+  }
+  #flavor-tag {
+    font-size: 16px;
+  }
+  #tools {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .cap {
+    width: 52px;
+    height: 52px;
+  }
+  #help {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #flash.go {
+    animation-duration: 0.01s;
+  }
+}

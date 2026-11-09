@@ -1,0 +1,24 @@
+{
+  "name": "@ai-games/vending-machine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Fizzwick's Tonic-O-Matic: a three.js retro power-up soda machine. Everything is generated in code (extruded/lathed geometry, canvas-painted textures seeded from @ai-games/schema's PRNG, WebAudio-synthesised sound) — no binary assets. Four flavours re-livery the machine; vending plays a coin/rumble/drop/drink sequence and awards a perk.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@ai-games/schema": "workspace:*",
+    "@fontsource/bebas-neue": "5.3.0",
+    "@fontsource/lobster": "5.3.0",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.187.0",
+    "typescript": "7.0.2",
+    "vite": "7.3.6"
+  }
+}

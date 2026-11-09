@@ -3,9 +3,10 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.24.0",
-  "description": "Code-generated browser game assets. Workspace layout: packages/schema (pure contracts + PRNG), packages/core (tiny raw-WebGPU runtime), packages/gen (procedural generator library), capsules/ (style capsules: manifest + validate()), assets/ (asset = gen.ts program + asset.json params), apps/playground (Vite live-preview + Tweakpane param editor + finalize lockfile). Root devDeps on workspace packages + zod exist so top-level assets/ and capsules/ (which are not packages) can resolve those imports for both tsc and Vite.",
+  "description": "Code-generated browser game assets. Workspace layout: packages/schema (pure contracts + PRNG), packages/core (tiny raw-WebGPU runtime), packages/gen (procedural generator library), capsules/ (style capsules: manifest + validate()), assets/ (asset = gen.ts program + asset.json params), apps/playground (Vite live-preview + Tweakpane param editor + finalize lockfile), apps/vending-machine (standalone three.js scene: a procedurally built retro tonic vending machine). Root devDeps on workspace packages + zod exist so top-level assets/ and capsules/ (which are not packages) can resolve those imports for both tsc and Vite.",
   "scripts": {
     "dev": "pnpm --filter @ai-games/playground dev",
+    "dev:vending": "pnpm --filter @ai-games/vending-machine dev",
     "typecheck": "pnpm -r run typecheck && tsc -p tsconfig.assets.json",
     "test": "pnpm --filter @ai-games/gen run test"
   },

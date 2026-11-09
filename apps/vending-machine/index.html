@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Fizzwick's Tonic-O-Matic</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%2310101a'/%3E%3Ccircle cx='8' cy='8' r='4.5' fill='%23ff9a3c'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <div id="flash"></div>
+    <div id="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+    <div id="hud">
+      <section id="card">
+        <div class="brand">Fizzwick’s <span>Tonic-O-Matic</span></div>
+        <h1 id="flavor-name"></h1>
+        <div id="flavor-sub"></div>
+        <p id="flavor-tag"></p>
+        <p id="perk-line"></p>
+      </section>
+
+      <div id="tools">
+        <button id="mute" type="button" aria-pressed="false">Sound on</button>
+        <button id="reset" type="button">Reset perks</button>
+      </div>
+
+      <div id="toast" role="status" aria-live="polite"></div>
+
+      <div id="dock">
+        <div id="caps"></div>
+        <button id="vend" type="button">Push for tonic</button>
+        <div id="help">Drag to look · scroll to zoom · 1–4 flavour · Space to vend · M sound</div>
+      </div>
+    </div>
+
+    <div id="loading">Warming up the tubes…</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
